@@ -369,7 +369,7 @@ Set `NODE_ENV=development` to get stack traces in error responses.
 |----------|-------------|---------|
 | `PORT` | Server port | 5000 |
 | `NODE_ENV` | Environment | development |
-| `MONGO_URI` | MongoDB connection string | mongodb://localhost:27017/skillloop |
+| `MONGODB_URI` | MongoDB connection string | mongodb://localhost:27017/skillloop |
 | `JWT_SECRET` | Secret key for JWT signing | dev-key (change in production) |
 | `JWT_EXPIRES_IN` | Token expiration time | 7d |
 
