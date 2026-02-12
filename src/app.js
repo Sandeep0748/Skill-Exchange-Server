@@ -9,34 +9,18 @@ const errorHandler = require("./middleware/error.middleware");
 
 const app = express();
 
-// Middleware
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5173',
-  'https://skill-exchange-frontend-chi.vercel.app',
-  process.env.FRONTEND_URL || ''
-].filter(url => url && url.length > 0);
-
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log('CORS blocked origin:', origin);
-      callback(null, true); // Allow for debugging
-    }
-  },
+// CORS configuration - must be first middleware
+const corsOptions = {
+  origin: ['https://skill-exchange-frontend-chi.vercel.app', 'http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  maxAge: 86400
-}));
+  optionsSuccessStatus: 200,
+  maxAge: 3600
+};
 
-// Preflight requests
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(morgan("dev"));
